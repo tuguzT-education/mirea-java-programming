@@ -9,17 +9,14 @@ public class Dingo extends Dog {
         super(weight, name, color, gender, age);
     }
 
-    @Override
     public String getBarkSound() {
         return "Rauph!";
     }
 
-    @Override
     public String getHowlSound() {
         return "Howl...";
     }
 
-    @Override
     public String toString() {
         return "Dingo{weight = " + weight + ", name = '" + name + "', age = " + age +
                 ", color = '" + color + "', gender = " + gender + "}";

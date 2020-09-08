@@ -37,17 +37,14 @@ public class Rectangle extends Shape {
         this.length = length;
     }
 
-    @Override
     public double getArea() {
         return width * length;
     }
 
-    @Override
     public double getPerimeter() {
         return (width + length) * 2;
     }
 
-    @Override
     public String toString() {
         return "Rectangle{width = " + width + ", height = " + length
                 + ", color = '" + color + "', filled = " + filled + "}";

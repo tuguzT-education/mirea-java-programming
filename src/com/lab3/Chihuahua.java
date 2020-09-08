@@ -9,17 +9,14 @@ public class Chihuahua extends Dog {
         super(weight, name, color, gender, age);
     }
 
-    @Override
     public String getBarkSound() {
         return "Roth, roth!";
     }
 
-    @Override
     public String getHowlSound() {
         return "Yaw, yaw!";
     }
 
-    @Override
     public String toString() {
         return "Chihuahua{weight = " + weight + ", name = '" + name + "', age = " + age +
                 ", color = '" + color + "', gender = " + gender + "}";

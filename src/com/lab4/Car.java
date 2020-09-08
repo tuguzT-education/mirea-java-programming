@@ -31,7 +31,6 @@ public class Car implements Priceable {
         this.price = price;
     }
 
-    @Override
     public double getPrice() {
         return price;
     }

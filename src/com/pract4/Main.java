@@ -56,7 +56,10 @@ public class Main extends JFrame {
                 public void mouseClicked(MouseEvent e) { }
 
                 @Override
-                public void mousePressed(MouseEvent e) {
+                public void mousePressed(MouseEvent e) { }
+
+                @Override
+                public void mouseReleased(MouseEvent e) {
                     ++score;
                     result.setText("Result: " + buttonMilan.score + " X " + buttonMadrid.score);
                     lastScorer.setText("Last scorer: " + getText());
@@ -68,9 +71,6 @@ public class Main extends JFrame {
                         winner.setText("Winner: DRAW");
                     }
                 }
-
-                @Override
-                public void mouseReleased(MouseEvent e) { }
 
                 @Override
                 public void mouseEntered(MouseEvent e) { }

@@ -21,17 +21,14 @@ public class Square extends Rectangle {
         this.width = this.length = side;
     }
 
-    @Override
     public void setWidth(double width) {
         setSide(width);
     }
 
-    @Override
     public void setLength(double length) {
         setSide(length);
     }
 
-    @Override
     public String toString() {
         return "Square{side = " + width + ", color = '"
                 + color + "', filled = " + filled + "}";
