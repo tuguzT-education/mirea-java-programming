@@ -12,11 +12,11 @@ public class Lab5 extends JFrame {
         setSize(500, 500);
 
         imageIcons = new ImageIcon[] {
-                new ImageIcon(new ImageIcon("C:\\Users\\mi\\Documents\\IntelliJ Projects" +
-                        "\\RTU Java\\src\\com\\lab5\\frames\\cursed.png").getImage()
+                new ImageIcon(new ImageIcon("C:/Users/mi/Documents/IntelliJ Projects" +
+                        "/RTU Java/src/rtu/lab5/frames/cursed.png").getImage()
                         .getScaledInstance(getWidth(), getHeight(), Image.SCALE_SMOOTH)),
-                new ImageIcon(new ImageIcon("C:\\Users\\mi\\Documents\\IntelliJ Projects" +
-                        "\\RTU Java\\src\\com\\lab5\\frames\\timur.jpg").getImage()
+                new ImageIcon(new ImageIcon("C:/Users/mi/Documents/IntelliJ Projects" +
+                        "/RTU Java/src/rtu/lab5/frames/timur.jpg").getImage()
                         .getScaledInstance(getWidth(), getHeight(), Image.SCALE_SMOOTH)),
         };
         label = new JLabel();
