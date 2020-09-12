@@ -21,10 +21,10 @@ public class SortingStudentsByGPA {
         final Student pivot = students[(begin + end) / 2];
         int i = begin, j = end;
         while (true) {
-            while (comparator.compare(students[i], pivot) < 0) {
+            while (comparator.compare(students[i], pivot) > 0) {
                 ++i;
             }
-            while (comparator.compare(students[j], pivot) > 0) {
+            while (comparator.compare(students[j], pivot) < 0) {
                 --j;
             }
 
