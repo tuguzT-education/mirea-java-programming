@@ -4,16 +4,22 @@ import java.util.Arrays;
 import java.util.Comparator;
 
 public class Student {
-    private final byte[] finalMarks;
     private final String name;
+    private final String IDNumber;
+    private final byte[] finalMarks;
 
-    public Student(final String name, final byte[] finalMarks) {
+    public Student(final String name, final String IDNumber, final byte[] finalMarks) {
         this.finalMarks = finalMarks.clone();
         this.name = name;
+        this.IDNumber = IDNumber;
     }
 
     public String getName() {
         return name;
+    }
+
+    public String getIDNumber() {
+        return IDNumber;
     }
 
     public byte[] getFinalMarks() {
@@ -22,8 +28,8 @@ public class Student {
 
     @Override
     public String toString() {
-        return "Student{finalMarks = " + Arrays.toString(finalMarks)
-                + ", name = '" + name + "'}";
+        return "Student{name = '" + name + "', IDNumber = '" + IDNumber
+                + "', finalMarks = " + Arrays.toString(finalMarks) + "}";
     }
 
     private static double getAverageMark(final Student student) {
