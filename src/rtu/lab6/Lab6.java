@@ -28,13 +28,13 @@ public class Lab6 extends JFrame {
             label.setHorizontalAlignment(JButton.CENTER);
         }
 
-        labels[0].addMouseListener(new MouseListener("Добро пожаловать в"));
+        labels[0].addMouseListener(new MouseListener("Добро пожаловать в ..."));
         add(labels[0], BorderLayout.NORTH);
 
         labels[1].addMouseListener(new MouseListener("Добро пожаловать в Джидда"));
         add(labels[1], BorderLayout.WEST);
 
-        labels[2].addMouseListener(new MouseListener("Добро пожаловать в "));
+        labels[2].addMouseListener(new MouseListener("Добро пожаловать в Мир"));
         add(labels[2], BorderLayout.CENTER);
 
         labels[3].addMouseListener(new MouseListener("Добро пожаловать в Дахране"));

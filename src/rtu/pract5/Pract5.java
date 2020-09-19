@@ -2,11 +2,6 @@ package rtu.pract5;
 
 public class Pract5 {
     public static void main(String[] args) {
-        final long a = 2L, b = 7L;
-        System.out.println("Упражнение 9: существует " + Task9.get(a, b)
-                + " последовательностей из " + a + " нулей и " + b + " единиц,"
-                + " в которых никакие два нуля не стоят рядом");
-
         final long var = 1535728715496452361L;
         System.out.println("\nУпражнение 10: число " + var
                 + ", записанное наоборот: " + Task10.getReversed(var));

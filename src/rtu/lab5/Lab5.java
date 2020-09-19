@@ -14,14 +14,13 @@ public class Lab5 extends JFrame {
         super("AnimatedFrame");
         setSize(500, 500);
 
-        imageIcons = new ImageIcon[] {
-                new ImageIcon(ImageIO.read(new File("C:/Users/mi/Documents/IntelliJ Projects" +
-                        "/RTU Java/src/rtu/lab5/frames/cursed.png"))
-                        .getScaledInstance(getWidth(), getHeight(), Image.SCALE_AREA_AVERAGING)),
-                new ImageIcon(ImageIO.read(new File("C:/Users/mi/Documents/IntelliJ Projects" +
-                        "/RTU Java/src/rtu/lab5/frames/timur.jpg"))
-                        .getScaledInstance(getWidth(), getHeight(), Image.SCALE_AREA_AVERAGING))
-        };
+        imageIcons = new ImageIcon[4];
+        for (int i = 0; i < imageIcons.length; i++) {
+            imageIcons[i] = new ImageIcon(ImageIO.read(new File(
+                    "C:/Users/mi/Documents/IntelliJ Projects" +
+                    "/RTU Java/src/rtu/lab5/frames/" + (i + 1) + ".png"))
+                    .getScaledInstance(getWidth(), getHeight(), Image.SCALE_FAST));
+        }
         label = new JLabel();
         label.setBounds(0, 0, getWidth(), getHeight());
         add(label);
@@ -35,17 +34,16 @@ public class Lab5 extends JFrame {
         try {
             var frame = new Lab5();
             while (true) {
-                for (var imageIcon : frame.imageIcons) {
-                    frame.label.setIcon(imageIcon);
-                    try {
-                        Thread.sleep(300);
-                    } catch (InterruptedException exception) {
-                        System.out.println(exception.getMessage());
-                        return;
-                    }
+                for (int i = 0; i < frame.imageIcons.length; ++i) {
+                    frame.label.setIcon(frame.imageIcons[i]);
+                    Thread.sleep(150);
+                }
+                for (int i = frame.imageIcons.length - 1; i >= 0; --i) {
+                    frame.label.setIcon(frame.imageIcons[i]);
+                    Thread.sleep(150);
                 }
             }
-        } catch (IOException exception) {
+        } catch (Exception exception) {
             System.out.println(exception.getMessage());
         }
     }
