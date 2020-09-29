@@ -23,7 +23,7 @@ public class Lab6 extends JFrame {
                 new JButton(BorderLayout.EAST),
                 new JButton(BorderLayout.SOUTH)
         };
-        for (var label : labels) {
+        for (JButton label : labels) {
             label.setVerticalAlignment(JButton.CENTER);
             label.setHorizontalAlignment(JButton.CENTER);
         }

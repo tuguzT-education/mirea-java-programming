@@ -32,7 +32,7 @@ public class Lab5 extends JFrame {
 
     public static void main(String[] args) {
         try {
-            var frame = new Lab5();
+            Lab5 frame = new Lab5();
             while (true) {
                 for (int i = 0; i < frame.imageIcons.length; ++i) {
                     frame.label.setIcon(frame.imageIcons[i]);

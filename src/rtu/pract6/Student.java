@@ -34,7 +34,7 @@ public class Student {
 
     private static double getAverageMark(final Student student) {
         double mark = 0;
-        for (final var item : student.finalMarks) {
+        for (final byte item : student.finalMarks) {
             mark += item;
         }
         return mark / student.finalMarks.length;
