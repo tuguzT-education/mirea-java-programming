@@ -28,7 +28,6 @@ public class LabClassUI extends JFrame {
                 new Student("Dmitriy", "0T65I", new byte[] {2, 2, 2})
         ));
 
-        // todo интерфейс
         JTable table = new JTable(labTableModel);
         JScrollPane scrollPane = new JScrollPane(table);
         add(scrollPane, BorderLayout.CENTER);
