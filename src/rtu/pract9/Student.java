@@ -39,8 +39,8 @@ public class Student implements Comparable<Student> {
 
     @Override
     public String toString() {
-        return "Student{name = '" + name + "', IDNumber = '" + IDNumber
-                + "', finalMarks = " + Arrays.toString(finalMarks) + "}";
+        return "Student's name is '" + name + "', IDNumber is '" + IDNumber
+                + "', finalMarks are " + Arrays.toString(finalMarks);
     }
 
     private static double getAverageMark(final Student student) {

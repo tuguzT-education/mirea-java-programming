@@ -4,7 +4,7 @@ import java.util.Arrays;
 import java.util.Collection;
 
 public class LabClassDriver {
-    public static Student findByName(String name, Student[] students) {
+    public static Student findByName(String name, Collection<Student> students) {
         for (Student student : students) {
             if (name.equals(student.getName())) {
                 return student;
@@ -13,11 +13,11 @@ public class LabClassDriver {
         return null;
     }
 
-    public static void sort(Collection<Student> comparables) {
-        Student[] objects = comparables.toArray(new Student[0]);
-        sort(objects, 0, comparables.size() - 1);
-        comparables.clear();
-        comparables.addAll(Arrays.asList(objects));
+    public static void sort(Collection<Student> students) {
+        Student[] objects = students.toArray(new Student[0]);
+        sort(objects, 0, students.size() - 1);
+        students.clear();
+        students.addAll(Arrays.asList(objects));
     }
 
     public static void sort(Comparable<Student>[] objects) {

@@ -12,21 +12,18 @@ import java.util.List;
 
 public class LabClassUI extends JFrame {
     private final LabTableModel labTableModel;
+    private final LabClass labClass;
 
-    LabClassUI() {
+    LabClassUI(LabClass labClass) {
         super("Lab class");
+        this.labClass = labClass;
+
         setLayout(new BorderLayout());
         setSize(500, 500);
         setMinimumSize(new Dimension(300, 300));
         setDefaultCloseOperation(EXIT_ON_CLOSE);
 
-        labTableModel = new LabTableModel(Arrays.asList(
-                new Student("Damir", "5Q8QG", new byte[] {5, 5, 5}),
-                new Student("Timur", "5Q8QH", new byte[] {5, 4, 5}),
-                new Student("Emma", "6T53S", new byte[] {5, 4, 2}),
-                new Student("Alex", "0T83Q", new byte[] {5, 4, 4}),
-                new Student("Dmitriy", "0T65I", new byte[] {2, 2, 2})
-        ));
+        labTableModel = new LabTableModel();
 
         JTable table = new JTable(labTableModel);
         JScrollPane scrollPane = new JScrollPane(table);
@@ -61,11 +58,21 @@ public class LabClassUI extends JFrame {
         findButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                String name = textField.getText();
-                Student student = LabClassDriver.findByName(name,
-                        LabTableModel.data.toArray(new Student[0]));
-                if (student == null) {
-                    System.out.println("ERROR!");
+                try {
+                    String name = textField.getText();
+                    if (name == null || name.isEmpty() || name.isBlank()) {
+                        throw new EmptyStringException();
+                    }
+                    Student student = LabClassDriver.findByName(name, labClass.getStudents());
+                    if (student == null) {
+                        throw new StudentNotFoundException(name);
+                    } else {
+                        JOptionPane.showMessageDialog(LabClassUI.this,
+                                "Statistics of student:\n" + student);
+                    }
+                } catch (EmptyStringException | StudentNotFoundException exception) {
+                    JOptionPane.showMessageDialog(LabClassUI.this,
+                            exception.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
                 }
             }
         });
@@ -82,20 +89,14 @@ public class LabClassUI extends JFrame {
         labTableModel.removeRow(studentIndex);
     }
 
-    private static class LabTableModel extends AbstractTableModel {
-        private static final String[] columnNames = {
+    private class LabTableModel extends AbstractTableModel {
+        private final String[] columnNames = {
                 "Name", "ID number", "Final marks"
         };
-        private static final LinkedList<Student> data = new LinkedList<>();
-
-        LabTableModel(List<Student> students) {
-            data.addAll(students);
-            Collections.shuffle(data);
-        }
 
         @Override
         public int getRowCount() {
-            return data.size();
+            return labClass.getStudents().size();
         }
 
         @Override
@@ -120,7 +121,7 @@ public class LabClassUI extends JFrame {
 
         @Override
         public Object getValueAt(int rowIndex, int columnIndex) {
-            final Student student = data.get(rowIndex);
+            final Student student = labClass.getStudents().get(rowIndex);
             switch (columnIndex) {
                 case 0:
                     return student.getName();
@@ -134,23 +135,24 @@ public class LabClassUI extends JFrame {
         }
 
         public void removeRow(int rowIndex) {
-            data.remove(rowIndex);
+            labClass.getStudents().remove(rowIndex);
             fireTableRowsDeleted(rowIndex, rowIndex);
         }
 
         public void addRow(Student student) {
-            data.add(student);
-            fireTableRowsInserted(data.size() - 1, data.size() - 1);
+            labClass.getStudents().add(student);
+            final int last = labClass.getStudents().size() - 1;
+            fireTableRowsInserted(last, last);
         }
 
         public void sortByGPA() {
-            LabClassDriver.sort(data);
-            fireTableRowsUpdated(0, data.size() - 1);
+            LabClassDriver.sort(labClass.getStudents());
+            fireTableRowsUpdated(0, labClass.getStudents().size() - 1);
         }
 
         public void shuffle() {
-            Collections.shuffle(data);
-            fireTableRowsUpdated(0, data.size() - 1);
+            Collections.shuffle(labClass.getStudents());
+            fireTableRowsUpdated(0, labClass.getStudents().size() - 1);
         }
     }
 }
