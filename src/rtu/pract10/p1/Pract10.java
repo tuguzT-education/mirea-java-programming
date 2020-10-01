@@ -22,7 +22,7 @@ public class Pract10 {
         Complex[] complexes = new Complex[2];
         for (int i = 0; i < complexes.length; ++i) {
             System.out.println("Enter real and imaginary integer " +
-                    "parts of the " + i + " complex number:");
+                    "parts of the " + (i + 1) + " complex number:");
             complexes[i] = getComplexFromConsole();
         }
         System.out.println("The first complex number is " + complexes[0] +
