@@ -1,4 +1,4 @@
-package rtu.pract10.Documents;
+package rtu.pract10.p3.Documents;
 
 import java.io.File;
 
