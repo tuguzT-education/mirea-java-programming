@@ -12,7 +12,7 @@ public class Lab10 {
     }
 
     public static void main(String[] args) {
-        System.out.println(toList(new String[]{"khdf'", "0", "hahah"}));
+        System.out.println(toList(new Object[]{"khdf", null, 12, "hahah"}));
         System.out.println(toList(new Integer[]{-497, 58, 1843, -234}));
     }
 }
