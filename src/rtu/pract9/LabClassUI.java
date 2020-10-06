@@ -60,7 +60,7 @@ public class LabClassUI extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 try {
                     String name = textField.getText();
-                    if (name == null || name.isEmpty() || name.isBlank()) {
+                    if (name == null || name.isEmpty()) {
                         throw new EmptyStringException();
                     }
                     Student student = LabClassDriver.findByName(name, labClass.getStudents());
