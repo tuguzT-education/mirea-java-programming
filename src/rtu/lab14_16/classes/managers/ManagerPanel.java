@@ -2,7 +2,6 @@ package rtu.lab14_16.classes.managers;
 
 import rtu.lab14_16.classes.AppPanel;
 import rtu.lab14_16.classes.lists.ItemListPanel;
-import rtu.lab14_16.classes.lists.ListPanel;
 import rtu.lab14_16.classes.lists.OrderListPanel;
 import rtu.pract15_16.managers.OrderManager;
 
@@ -21,7 +20,8 @@ public class ManagerPanel extends AppPanel {
     protected final OrderListPanel orderListPanel;
     protected final ItemListPanel itemListPanel;
 
-    public ManagerPanel (OrderListPanel orderListPanel, ItemListPanel itemListPanel, String title, int y) {
+    public ManagerPanel (OrderListPanel orderListPanel,
+                         ItemListPanel itemListPanel, String title, int y) {
         super(title, 15, y, 300, 365);
         this.orderListPanel = orderListPanel;
         this.itemListPanel = itemListPanel;
@@ -45,25 +45,26 @@ public class ManagerPanel extends AppPanel {
         });
 
         removeButton.addActionListener(actionEvent -> {
-            String name = JOptionPane.showInputDialog("Enter name of Manager you want to remove: ");
-            boolean found = false;
+            String name = (String) JOptionPane.showInputDialog(null,
+                    "Choose name of Item to remove:", "Choose something",
+                    JOptionPane.QUESTION_MESSAGE, null,
+                    orderManagersNames, orderManagersNames[0]);
+            if (name == null) return;
 
-            for (int i = 0; i < orderManagersNames.length && !found; ++i)
+            for (int i = 0; i < orderManagersNames.length; ++i) {
                 if (orderManagersNames[i].equals(name)) {
-                    found = true;
                     if (JOptionPane.showConfirmDialog(null,
-                            "Are you sure you want to remove (FOREVER!)\na Manager with name '" + name + "'?",
+                            "Are you sure you want to remove (FOREVER!)" +
+                                    "\nan Item with name '" + name + "'?",
                             "Confirm your action", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
                         if (orderManagersNames.length - (i + 1) >= 0)
-                            System.arraycopy(orderManagersNames, i + 1,
-                                    orderManagersNames, i,
+                            System.arraycopy(orderManagersNames, i + 1, orderManagersNames, i,
                                     orderManagersNames.length - (i + 1));
                         String[] newOrderManagersNames = new String[orderManagersNames.length - 1];
                         System.arraycopy(orderManagersNames, 0,
                                 newOrderManagersNames, 0,
                                 newOrderManagersNames.length);
                         orderManagersNames = newOrderManagersNames;
-                        tableModel.fireTableRowsDeleted(orderManagersNames.length, orderManagersNames.length);
 
                         if (orderManagers.length - (i + 1) >= 0)
                             System.arraycopy(orderManagers, i + 1,
@@ -75,17 +76,14 @@ public class ManagerPanel extends AppPanel {
                                 newOrderManagers.length);
                         orderManagers = newOrderManagers;
 
-                        quantityLabel.setText("Quantity: " + orderManagers.length);
-                        tableModel.fireTableRowsDeleted(orderManagers.length, orderManagers.length);
+                        quantityLabel.setText("Quantity: " + orderManagersNames.length);
+                        tableModel.fireTableRowsDeleted(orderManagersNames.length, orderManagersNames.length);
                         orderListPanel.setOrderManager(null);
                         itemListPanel.setOrder(null);
+                        break;
                     }
                 }
-            if (!found && name != null)
-                JOptionPane.showMessageDialog(null, "An Order Manager with " +
-                                "input name not found!", "Nothing to remove", JOptionPane.INFORMATION_MESSAGE);
-            if (orderManagersNames.length == 0)
-                removeButton.setEnabled(false);
+            }
         });
     }
 

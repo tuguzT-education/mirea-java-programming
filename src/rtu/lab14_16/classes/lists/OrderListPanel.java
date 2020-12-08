@@ -20,9 +20,7 @@ public class OrderListPanel extends ListPanel {
     private String[] orderNames = new String[0];
     private OrderManager orderManager;
 
-//    private final JLabel tableLabel = new JLabel("Tables: -", SwingConstants.CENTER);
     private final OrderListTableModel tableModel = new OrderListTableModel();
-//    private final JButton freeTableButton = new JButton("Free Table");
     private final JTable table = new JTable(tableModel);
 
     public OrderListPanel (ItemListPanel itemListPanel) {
@@ -39,14 +37,6 @@ public class OrderListPanel extends ListPanel {
 
         quantityLabel.setBounds(15, 65, 140, 30);
         costLabel.setBounds(155, 65, 125, 30);
-
-//        tableLabel.setFont(FONT);
-//        innerPanel.add(tableLabel);
-//        tableLabel.setBounds(295, 65, 110, 30);
-
-//        freeTableButton.setBounds(185, 25, 100, 30);
-//        freeTableButton.setEnabled(false);
-//        innerPanel.add(freeTableButton);
 
         table.addMouseListener(new MouseAdapter() {
             @Override
@@ -103,32 +93,18 @@ public class OrderListPanel extends ListPanel {
 
         removeButton.addActionListener(actionEvent -> {
             if (orderManager instanceof RestaurantOrderManager) {
-                String firstName = JOptionPane.showInputDialog(
-                        "Enter first name of customer of Order you want to remove: ");
-                if (firstName == null)
-                    return;
-                String secondName = JOptionPane.showInputDialog(
-                        "Enter second name of customer of Order you want to remove: ");
-                if (secondName == null)
-                    return;
+                String name = (String) JOptionPane.showInputDialog(null,
+                        "Choose name of Item to remove:", "Choose something",
+                        JOptionPane.QUESTION_MESSAGE, null,
+                        orderNames, orderNames[0]);
+                if (name == null) return;
 
-                int age;
-                try {
-                    age = Integer.parseInt(JOptionPane.showInputDialog("Enter age of customer who made an Order: "));
-                } catch (NumberFormatException exception) {
-                    JOptionPane.showMessageDialog(null, exception.getMessage());
-                    return;
-                }
-
-                boolean found = false;
-                String name = firstName + ' ' + secondName + ", age " + age;
-                for (int i = 0; i < orderNames.length && !found; ++i) {
+                for (int i = 0; i < orderNames.length; ++i) {
                     if (orderNames[i].equals(name)) {
-                        found = true;
                         RestaurantOrderManager restaurantOrderManager = (RestaurantOrderManager) orderManager;
                         if (JOptionPane.showConfirmDialog(null,
                                 "Are you sure you want to remove (FOREVER!)" +
-                                        "\nan Order with Customer '" + name + "'?",
+                                        "\nan Item with name '" + name + "'?",
                                 "Confirm your action", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
                             if (orderNames.length - (i + 1) >= 0)
                                 System.arraycopy(orderNames, i + 1, orderNames, i,
@@ -143,13 +119,10 @@ public class OrderListPanel extends ListPanel {
                             quantityLabel.setText("Quantity: " + orderNames.length);
                             costLabel.setText("Cost: " + orderManager.getTotalCost());
                             tableModel.fireTableRowsDeleted(orderNames.length, orderNames.length);
+                            break;
                         }
                     }
                 }
-
-                if (!found)
-                    JOptionPane.showMessageDialog(null, "An Order with input name not found!",
-                            "Nothing to remove", JOptionPane.INFORMATION_MESSAGE);
             } else {
                 InternetOrderManager internetOrderManager = (InternetOrderManager) orderManager;
                 Customer customer = internetOrderManager.order().getCustomer();
