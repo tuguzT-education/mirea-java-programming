@@ -1,28 +1,78 @@
-package rtu.pract15_16.Items;
+package rtu.pract15_16.items;
 
-public class Dish implements Item {
-    private final int cost;
-    private final String name;
-    private final String description;
+public class Dish extends Item {
+    private final boolean isHot, isVegetarian;
+    protected final String name, description;
+    protected final double cost;
+    private final DishType type;
 
-    public Dish(int cost, String name, String description) {
+    public Dish (double cost, String name, String description, boolean isHot, boolean isVegetarian, DishType type) {
+        if (cost < 0)
+            throw new IllegalArgumentException("Cost must not be less than zero");
+        if (description.isBlank())
+            throw new IllegalArgumentException("Description must not be blank");
         this.cost = cost;
-        this.name = name;
         this.description = description;
+        this.name = name;
+        this.isHot = isHot;
+        this.isVegetarian = isVegetarian;
+        this.type = type;
     }
 
-    @Override
-    public int getCost() {
-        return cost;
+    public Dish (String name, String description, boolean isHot, boolean isVegetarian, DishType type) {
+        if (description.isBlank())
+            throw new IllegalArgumentException("Description must not be blank");
+        cost = 0;
+        this.description = description;
+        this.name = name;
+        this.isHot = isHot;
+        this.isVegetarian = isVegetarian;
+        this.type = type;
     }
 
-    @Override
-    public String getName() {
+    public boolean isHot () {
+        return isHot;
+    }
+
+    public boolean isVegetarian () {
+        return isVegetarian;
+    }
+
+    public String getName () {
         return name;
     }
 
-    @Override
-    public String getDescription() {
+    public String getDescription () {
         return description;
+    }
+
+    public double getCost () {
+        return cost;
+    }
+
+    public DishType getType () {
+        return type;
+    }
+
+    public enum DishType {
+        SALAD,
+        SOUP,
+        PORRIDGE,
+        DESSERT,
+        GARNISH,
+        MEAT,
+        FISH,
+        VEGETABLE,
+        FRUIT,
+        MASH,
+        SUSHI,
+        PASTA
+    }
+
+    public String toString() {
+        return "\n\t\tDish:\n\tCost is " + cost + ", name is '" + name +
+                "', description is '" + description + "', " +
+                (isVegetarian ? "" : "not ") + "vegetarian, " +
+                (isHot ? "" : "not ") + "hot" + ", type is " + type;
     }
 }

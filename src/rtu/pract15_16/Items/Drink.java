@@ -1,55 +1,63 @@
-package rtu.pract15_16.Items;
+package rtu.pract15_16.items;
 
-public class Drink implements Alcoholable, Item {
-    private final double alcoholVol;
-    private final Type type;
+public class Drink extends Item implements Alcohol {
+    private static final double MIN_VOLUME = 0.03;
 
-    public Drink(double alcoholVol, Type type) {
-        this.alcoholVol = alcoholVol;
+    protected final double cost, alcoholByVolume;
+    protected final String name, description;
+    private final DrinkType type;
+
+    public Drink (double cost, String name, String description, double alcoholByVolume, DrinkType type) {
+        if (cost < 0)
+            throw new IllegalArgumentException("Cost must bot be less than zero");
+        if (alcoholByVolume < 0)
+            throw new IllegalArgumentException("Alcohol volume must not be less than zero");
+        if (description.isBlank())
+            throw new IllegalArgumentException("Description must not be blank");
+        this.cost = cost;
+        this.description = description;
+        this.name = name;
+        this.alcoholByVolume = alcoholByVolume;
         this.type = type;
     }
 
-    @Override
-    public double getAlcoholVol() {
-        return alcoholVol;
+    public Drink (String name, String description, double alcoholByVolume, DrinkType type) {
+        if (alcoholByVolume < 0)
+            throw new IllegalArgumentException("Alcohol volume must not be less than zero");
+        if (description.isBlank())
+            throw new IllegalArgumentException("Description must not be blank");
+        cost = 0;
+        this.description = description;
+        this.name = name;
+        this.alcoholByVolume = alcoholByVolume;
+        this.type = type;
     }
 
-    public Type getType() {
+    public double getCost () {
+        return cost;
+    }
+
+    public boolean isAlcoholicDrink () {
+        return alcoholByVolume >= MIN_VOLUME;
+    }
+
+    public double getAlcoholByVolume () {
+        return alcoholByVolume;
+    }
+
+    public String getName () {
+        return name;
+    }
+
+    public String getDescription () {
+        return description;
+    }
+
+    public DrinkType getType () {
         return type;
     }
 
-    @Override
-    public boolean isAlcoholDrink() {
-        switch (type) {
-            case JUICE:
-            case COFFEE:
-            case GREEN_TEA:
-            case BLACK_TEA:
-            case MILK:
-            case WATER:
-            case SODA:
-                return false;
-            default:
-                return true;
-        }
-    }
-
-    @Override
-    public int getCost() {
-        return isAlcoholDrink() ? 100 : 50;
-    }
-
-    @Override
-    public String getName() {
-        return type.name();
-    }
-
-    @Override
-    public String getDescription() {
-        return type.name();
-    }
-
-    public enum Type {
+    public enum DrinkType {
         BEER,
         WINE,
         VODKA,
@@ -67,6 +75,12 @@ public class Drink implements Alcoholable, Item {
         BLACK_TEA,
         MILK,
         WATER,
-        SODA,
+        SODA
+    }
+
+    public String toString() {
+        return "\n\t\tDrink:\n\tCost is " + cost + ", name is '" + name +
+                "', description is '" + description + "', alcohol volume is " +
+                alcoholByVolume + ", type is " + type;
     }
 }

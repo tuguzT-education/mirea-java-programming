@@ -1,33 +1,45 @@
-package rtu.pract15_16.Orders;
+package rtu.pract15_16.orders;
 
-import rtu.pract15_16.Items.Item;
+import rtu.pract15_16.customers.Customer;
+import rtu.pract15_16.items.Item;
 
-public interface Order {
-    boolean add(Item item);
+public abstract class Order {
+    protected Customer customer;
+    protected int size;
 
-    String[] itemsNames();
+    public abstract boolean add (Item item);
+    public abstract boolean remove (String name);
+    public abstract boolean remove (Item item);
+    public abstract int removeAll (String name);
+    public abstract int removeAll (Item item);
 
-    int itemsQuantity();
+    public abstract String[] getNames ();
+    public abstract Item[] getItems ();
+    public final Item[] getItemsSorted () {
+        Item[] items = getItems();
+        SortComparables.sort(items);
+        return items;
+    }
 
-    int itemQuantity(String itemName);
+    public abstract int getTotalQuantity ();
+    public abstract int getQuantity (String name);
+    public abstract int getQuantity (Item item);
 
-    int itemQuantity(Item item);
+    public abstract double getTotalCost ();
 
-    Item[] getItems();
+    public final void setCustomer (Customer customer) {
+        this.customer = customer;
+    }
 
-    boolean remove(String itemName);
+    public final Customer getCustomer () {
+        return customer;
+    }
 
-    boolean remove(Item item);
-
-    int removeAll(String itemName);
-
-    int removeAll(Item item);
-
-    Item[] sortedItemsByCostDescription();
-
-    int costTotal();
-
-    Customer getCustomer();
-
-    void setCustomer(Customer customer);
+    public String toString() {
+        StringBuilder string = new StringBuilder("\tOrder:" + customer.toString() + ".\n\tItems of this order:");
+        Item[] items = getItems();
+        for (Item item : items)
+            string.append(item.toString());
+        return string.toString();
+    }
 }

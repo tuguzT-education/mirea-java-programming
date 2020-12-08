@@ -19,7 +19,7 @@ public class Lab11 {
 
     private static void testCatalogue () throws IOException {
         Exercise4.saveCatalog("C:\\Users\\mi\\Documents\\" +
-                "IntelliJ Projects\\RTU Java\\src\\rtu\\lab11");
+                "IntelliJ Projects\\RTU Java\\src\\rtu\\");
         System.out.println("\n" + Exercise4.getCatalog());
     }
 
